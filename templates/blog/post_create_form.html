@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+
+<nav>
+    <div class="nav-wrapper white">
+        <a href="#" class="brand-logo"><img src="../media/imgtemplate/Logo_Kodland.svg" alt=""></a>
+        <a href="#" class="sidenav-trigger" data-target="mobile-links">
+            <i class="material-icons blue-text">menu</i>
+        </a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="#"><img src="../media/imgtemplate/email.svg" alt=""></a></li>
+            <li><a href="#"><img src="../media/imgtemplate/Uchenik.svg" alt=""></a></li>
+            <li><a href="#"><img src="../media/imgtemplate/logout.svg" alt=""></a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+    <h3 class="hee">Добавить статью</h3>
+
+    <form action="{% url 'post_create_url' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col s8">
+                <div class="input-field input_title">
+                    {{ form.title }}
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="input-field">
+                    <button type="submit" class="btn btn-primary">Создать статью</button>
+                </div>
+            </div>
+            <div class="col s8">
+                <div class="input-field">
+                    {{ form.slug }}
+                </div>
+            </div>
+            <div class="col s8">
+                <div class="input-field content_input">
+                     {{ form.content }}
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="input-field">
+                    <div class="image-layout">
+                        <input type="file" class="imginput" id="image" name="image" onchange="onChangeFile(event)" accept="image/*">
+                        <label for="image">Загрузить изображение</label>
+                        <div class="image-loaded">
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+{#        {{ form.image }}#}
+
+
+    </form>
+
+
+
+
+    <form action="{% url 'post_create_url' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="col s8">
+                <div class="input-field">
+                    <input class="input_title" type="text" name="title" placeholder="Введите название статьи">
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="input-field">
+                    <button class="btn" type="submit">Публикация</button>
+                </div>
+            </div>
+            <div class="col s8">
+                <div class="input-field">
+                    <textarea name="content" class="content_input"></textarea>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="input-field">
+                    <div class="image-layout">
+                        <input type="file" class="imginput" id="image" name="image" onchange="onChangeFile(event)" accept="image/*">
+                        <label for="image">Загрузить изображение</label>
+                        <div class="image-loaded">
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="input-field col s12">
+
+            <form action="{% url 'post_create_url' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.title }}
+                <input type="text" name="title">
+                {{ form.content }}
+                {{ form.image }}
+                <button type="submit" class="btn btn-primary">Создать статью</button>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function onChangeFile(event) {
+        const input = event.target;
+
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            const src = window.URL.createObjectURL(file);
+
+            const img = new Image();
+            img.src = src;
+            const reader = new FileReader();
+
+            reader.onabort = reader.onerror = (e) => {
+                console.log('Ошибка!');
+            };
+
+            if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+                const name = file.name.split('.');
+                const ext = name[name.length - 1];
+                console.log(`Тип ${ext} не поддерживается`);
+                return;
+            }
+
+            img.onload = () => {
+                reader.onload = (e) => {
+                    {#if (file.size / 1024 / 1024 > 3000) {#}
+                    {#    console.log(`Размер фотографии не должна превышать ${3000} МБ`);#}
+                    {#    return;#}
+                    {#} else if ((img.naturalWidth < 5000) || (img.naturalHeight < 5000) || (img.naturalWidth > 5000) || (img.naturalHeight > 5000)) {#}
+                    {#    console.log(`Фотография должна иметь размер не менее ${3000}х${3000} не более ${3000}x${3000} точек`);#}
+                    {#    return;#}
+                    {#}#}
+                    {#else {#}
+                        console.log(reader.result)
+                        const div = document.createElement('img');
+                        div.setAttribute('src', reader.result);
+                        document.querySelector('.image-layout > .image-loaded > div').appendChild(div);
+                        // this.imageData = reader.result;
+                    {#}#}
+                };
+
+
+                reader.readAsDataURL(file);
+            }
+        }
+    }
+</script>
+</body>
+</html>

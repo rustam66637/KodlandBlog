@@ -1,0 +1,116 @@
+@font-face {
+    font-family: 'Museo Cyrl';
+    src: local('Museo Cyrl 500'), local('MuseoCyrl-500'),
+    url('../fonts/Museocyrl500.woff2') format('woff2'),
+    url('../fonts/Museocyrl500.woff') format('woff'),
+    url('../fonts/Museocyrl500.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circe Rounded';
+    src: local('Circe Rounded Regular5'), local('Circe-Rounded-Regular5'),
+        url('../fonts/CirceRounded-Regular5.woff2') format('woff2'),
+        url('../fonts/CirceRounded-Regular5.woff') format('woff'),
+        url('../fonts/CirceRounded-Regular5.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.post_title {
+    color: #315AF2;
+
+    font-family: Museo Cyrl;
+    font-weight: bold;
+    font-size: 45px;
+    line-height: 52px;
+    /* or 116% */
+
+    display: flex;
+    align-items: center;
+}
+
+.post_text {
+
+    font-family: Circe Rounded;
+    font-size: 18px;
+    line-height: 22px;
+    /* or 137% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.416667px;
+
+    color: #000000;
+}
+
+.btn_text{
+
+    font-family: Museo Cyrl;
+    font-weight: bold;
+    font-size: 36px;
+    /*line-height: 43px;*/
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.416667px;
+    color: #FFFFFF;
+}
+
+a#post_btn{
+    background: #315AF2;
+    border-radius: 3px;
+}
+
+div#post_card{
+    box-shadow: none;
+}
+
+.brand-logo{
+    width: 190px;
+    height: 72.28px;
+}
+
+div#post_list{
+    /*position: absolute;*/
+    width: 260px;
+    height: 49px;
+    left: 194px;
+    top: 640px;
+
+    font-family: Museo Cyrl;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 20px;
+    /* or 56% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.416667px;
+
+    color: #315AF2;
+}
+
+
+
+.container{
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 0px 15px;
+}
+
+@media (max-width: 1200px) {
+    .container{
+        max-width: 970px;
+    }
+}
+@media (max-width: 992px) {
+    .container{
+        max-width: 750px;
+    }
+}
+@media (max-width: 767px) {
+    .container{
+        max-width: none;
+    }
+}
